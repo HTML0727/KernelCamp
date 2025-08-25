@@ -1,0 +1,103 @@
+# KernelCamp Docker Compose
+# 用于开发、构建和测试环境
+
+version: '3.8'
+
+services:
+  # Ubuntu开发环境（默认）
+  kernelcamp-ubuntu:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BASE_IMAGE=ubuntu:22.04
+    container_name: kernelcamp-ubuntu-dev
+    volumes:
+      - .:/app
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME/.Xauthority:/root/.Xauthority
+    working_dir: /app
+    environment:
+      - DISPLAY=$DISPLAY
+    stdin_open: true
+    tty: true
+    command: bash
+
+  # Arch Linux开发环境
+  kernelcamp-arch:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BASE_IMAGE=archlinux:latest
+    container_name: kernelcamp-arch-dev
+    volumes:
+      - .:/app
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME/.Xauthority:/root/.Xauthority
+    working_dir: /app
+    environment:
+      - DISPLAY=$DISPLAY
+    stdin_open: true
+    tty: true
+    command: bash
+
+  # Fedora开发环境
+  kernelcamp-fedora:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BASE_IMAGE=fedora:38
+    container_name: kernelcamp-fedora-dev
+    volumes:
+      - .:/app
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME/.Xauthority:/root/.Xauthority
+    working_dir: /app
+    environment:
+      - DISPLAY=$DISPLAY
+    stdin_open: true
+    tty: true
+    command: bash
+
+  builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kernelcamp-builder
+    volumes:
+      - .:/app
+      - ./build:/app/build
+    working_dir: /app
+    environment:
+      - DOTNET_CLI_TELEMETRY_OPTOUT=1
+      - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+    command: make all
+
+  runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kernelcamp-runner
+    volumes:
+      - .:/app
+      - ./build:/app/build
+    working_dir: /app/build/bin
+    environment:
+      - LD_LIBRARY_PATH=/app/build/lib
+      - DOTNET_CLI_TELEMETRY_OPTOUT=1
+    command: ./KernelCamp
+
+  appimage:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kernelcamp-appimage
+    volumes:
+      - .:/app
+      - ./build:/app/build
+    working_dir: /app
+    environment:
+      - DOTNET_CLI_TELEMETRY_OPTOUT=1
+    command: make appimage

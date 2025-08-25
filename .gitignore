@@ -1,0 +1,80 @@
+# 构建输出
+/build/
+/bin/
+/obj/
+
+# Docker相关
+.docker/
+*.tar.gz
+
+# 开发环境
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志文件
+*.log
+
+# 应用打包
+*.AppImage
+*.deb
+*.rpm
+
+# 用户特定文件
+.userprefs
+
+# 临时文件
+*.tmp
+*.temp
+
+# NuGet包
+packages/
+
+# Node.js
+node_modules/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# 测试覆盖率
+coverage/
+
+# 本地配置文件
+appsettings.Development.json
+
+# IDE文件
+*.suo
+*.user
+*.cache
+
+# 备份文件
+*.bak
+*.backup
+
+# 大型二进制文件
+*.dll
+*.exe
+*.so
+*.dylib
+
+# 文档生成
+_doc/
+_site/
+
+# 本地开发环境
+.env
+.env.local
+.env.development.local
+
+# 压缩包
+*.zip
+*.7z
+*.rar
