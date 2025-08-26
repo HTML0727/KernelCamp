@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# AppRun script for KernelCamp AppImage
+
+HERE="$(dirname "$(readlink -f "$0")")"
+cd "$HERE"
+
+export PATH="$HERE/usr/bin:$PATH"
+export LD_LIBRARY_PATH="$HERE/usr/lib:$HERE/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH"
+export GI_TYPELIB_PATH="$HERE/usr/lib/girepository-1.0:$GI_TYPELIB_PATH"
+export XDG_DATA_DIRS="$HERE/usr/share:$XDG_DATA_DIRS"
+export GTK_PATH="$HERE/usr/lib/x86_64-linux-gnu/gtk-3.0"
+export GTK_MODULES="$HERE/usr/lib/x86_64-linux-gnu/gtk-3.0"
+
+# Check if .NET runtime is available
+if [ ! -f "usr/bin/dotnet" ]; then
+    echo "Error: .NET runtime not found in AppImage"
+    exit 1
+fi
+
+# Run the application
+usr/bin/dotnet "usr/bin/KernelCamp.dll" "$@"
