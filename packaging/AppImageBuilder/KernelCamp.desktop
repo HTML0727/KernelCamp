@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=0.1
+Type=Application
+Name=KernelCamp
+GenericName=Linux Kernel Configuration Tool
+Comment=Graphical tool for Linux kernel configuration and parameter management
+Exec=KernelCamp
+Icon=kernel-camp
+Categories=System;Settings;
+Keywords=kernel;configuration;system;
+Terminal=false
+StartupNotify=true
+MimeType=
+X-AppImage-Version=0.a1
+X-AppImage-Name=KernelCamp
+X-AppImage-Arch=x86_64
